@@ -7,15 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace PlayerUI
 {
     public partial class Form1 : Form
     {
+        WMPLib.WindowsMediaPlayer Player;
         public Form1()
         {
             InitializeComponent();
             hideSubMenu();
+            Player = new WMPLib.WindowsMediaPlayer();
+            trackBarControl2.Value = (int)Player.settings.volume;
         }
 
         private void hideSubMenu()
@@ -171,7 +175,11 @@ namespace PlayerUI
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult result = MessageBox.Show("Do you want to exit the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         private Form activeForm = null;
@@ -186,6 +194,75 @@ namespace PlayerUI
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+        Timer t;
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.playState == true)
+            {
+                Player.controls.pause();
+                Properties.Settings.Default.playState = false;
+            }
+            else
+            {
+                PlayFile("Move My Feet (Ching)", sender, e);
+                Player.controls.play();
+                Properties.Settings.Default.playState = true;
+            }
+        }
+        public void PlayFile(String url, object sender, EventArgs e)
+        {
+            Player.URL = url + ".mp3";
+            Volume();
+
+            t = new Timer();
+            t.Interval = 1000;
+            t.Tick += new EventHandler(t_Tick);
+            t.Start();
+        }
+        private void Volume()
+        {
+            label3.Text = Player.settings.volume.ToString() + "%";
+        }
+        private void Player_MediaError(object pMediaObject)
+        {
+            MessageBox.Show("Cannot play media file.");
+            this.Close();
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+            if (Player.settings.mute == false)
+            {
+                Player.settings.mute = true;
+                Volume();
+            }
+            else
+            {
+                Player.settings.mute = false;
+                Volume();
+            }
+        }
+        void t_Tick(object sender, EventArgs e)
+        {
+            label1.Text = Player.currentMedia.durationString;
+            trackBarControl1.Properties.Maximum = (int)Player.currentMedia.duration;
+            trackBarControl2.Value = (int)Player.settings.volume;
+            trackBarControl1.Value = 0;
+
+            trackBarControl1.Value = (int)Player.controls.currentPosition;
+            label2.Text = Player.controls.currentPositionString;
+        }
+        private void trackBarControl1_EditValueChanged(object sender, EventArgs e)
+        {
+
+            trackBarControl1.Value = Convert.ToInt32(Player.controls.currentPosition);            
+        }
+
+        private void trackBarControl2_EditValueChanged(object sender, EventArgs e)
+        {
+            Player.settings.volume = trackBarControl2.Value;
+            label3.Text = Player.settings.volume.ToString() + "%";
         }
     }
 }
