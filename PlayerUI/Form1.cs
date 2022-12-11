@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using PlayerUI.Properties;
+using DevExpress.XtraEditors.ViewInfo;
+using DevExpress.XtraEditors;
 
 namespace PlayerUI
 {
     public partial class Form1 : Form
     {
         WMPLib.WindowsMediaPlayer Player;
+        double time = 0;
         public Form1()
         {
             InitializeComponent();
@@ -196,23 +200,38 @@ namespace PlayerUI
             childForm.Show();
         }
         Timer t;
+        bool isPlaying;
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.playState == true)
             {
+                isPlaying = false;
                 Player.controls.pause();
+                pictureBox2.Image = Resources.icons8_play_30;
                 Properties.Settings.Default.playState = false;
+                time = (double)Player.controls.currentPosition;
             }
             else
             {
-                PlayFile("Move My Feet (Ching)", sender, e);
+                isPlaying = true;
+                SelectSong("Move My Feet (Ching)");
+                PlayFile(sender, e);
+                pictureBox2.Image = Resources.icons8_pause_30;
                 Player.controls.play();
                 Properties.Settings.Default.playState = true;
             }
         }
-        public void PlayFile(String url, object sender, EventArgs e)
+
+        public void SelectSong(String url)
         {
             Player.URL = url + ".mp3";
+        }
+        public void PlayFile(object sender, EventArgs e)
+        {            
+            if (time != (double)Player.currentMedia.duration)
+            {
+                Player.controls.currentPosition = time;
+            }
             Volume();
 
             t = new Timer();
@@ -253,16 +272,62 @@ namespace PlayerUI
             trackBarControl1.Value = (int)Player.controls.currentPosition;
             label2.Text = Player.controls.currentPositionString;
         }
+
         private void trackBarControl1_EditValueChanged(object sender, EventArgs e)
         {
-
-            trackBarControl1.Value = Convert.ToInt32(Player.controls.currentPosition);            
+            if (Player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                trackBarControl1.Value = Convert.ToInt32(Player.controls.currentPosition);
+            }
         }
 
         private void trackBarControl2_EditValueChanged(object sender, EventArgs e)
         {
             Player.settings.volume = trackBarControl2.Value;
             label3.Text = Player.settings.volume.ToString() + "%";
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            time = 0;
+            Player.controls.currentPosition = time;            
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            time = Player.currentMedia.duration;
+            Player.controls.pause();
+        }
+        bool isDown;
+
+        private void trackBarControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDown = true;
+            Player.controls.pause();
+            t.Stop();
+        }
+
+        private void trackBarControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDown)
+            {
+                TrackBarControl trackBar = sender as TrackBarControl;
+                TrackBarViewInfo info = trackBar.GetViewInfo() as TrackBarViewInfo;
+                trackBar.EditValue = info.ValueFromPoint(e.Location);
+
+                Player.controls.currentPosition = trackBarControl1.Value;
+            }
+        }
+
+        private void trackBarControl1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDown = false;
+            t.Start();
+            if (isPlaying == true)
+            {
+                Player.controls.play();
+            }
+
         }
     }
 }
