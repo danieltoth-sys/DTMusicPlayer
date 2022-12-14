@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlayerUI.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,7 +12,8 @@ using System.Windows.Forms;
 namespace PlayerUI
 {
     public partial class Form2 : Form
-    {
+    {        
+
         public Form2()
         {
             InitializeComponent();
@@ -24,6 +26,11 @@ namespace PlayerUI
 
         private void button4_Click(object sender, EventArgs e)
         {
+            //Open file browser to search for the song
+            openSongDialog.ShowDialog();                        
+
+            Properties.Settings.Default.songPath = openSongDialog.FileName;
+            
         }
     }
 }

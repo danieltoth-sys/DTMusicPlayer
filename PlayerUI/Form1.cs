@@ -16,8 +16,10 @@ namespace PlayerUI
 {
     public partial class Form1 : Form
     {
-        WMPLib.WindowsMediaPlayer Player;
+        public WMPLib.WindowsMediaPlayer Player;
+        public string songPath { get; set; }
         double time = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,9 +30,7 @@ namespace PlayerUI
 
         private void hideSubMenu()
         {
-            panelMediaSubMenu.Visible = false;
-            panelPlaylistSubMenu.Visible = false;
-            panelToolsSubMenu.Visible = false;
+            panelMediaSubMenu.Visible = false;            
         }
 
         private void showSubMenu(Panel subMenu)
@@ -86,7 +86,7 @@ namespace PlayerUI
 
         private void btnPlaylist_Click(object sender, EventArgs e)
         {
-            showSubMenu(panelPlaylistSubMenu);
+            //showSubMenu(panelPlaylistSubMenu);
         }
 
         #region PlayListManagemetSubMenu
@@ -125,7 +125,7 @@ namespace PlayerUI
 
         private void btnTools_Click(object sender, EventArgs e)
         {
-            showSubMenu(panelToolsSubMenu);
+            //showSubMenu(panelToolsSubMenu);
         }
         #region ToolsSubMenu
         private void button13_Click(object sender, EventArgs e)
@@ -214,7 +214,7 @@ namespace PlayerUI
             else
             {
                 isPlaying = true;
-                SelectSong("Move My Feet (Ching)");
+                SelectSong(Properties.Settings.Default.songPath);
                 PlayFile(sender, e);
                 pictureBox2.Image = Resources.icons8_pause_30;
                 Player.controls.play();
@@ -224,7 +224,7 @@ namespace PlayerUI
 
         public void SelectSong(String url)
         {
-            Player.URL = url + ".mp3";
+            Player.URL = url;
         }
         public void PlayFile(object sender, EventArgs e)
         {            
@@ -327,7 +327,6 @@ namespace PlayerUI
             {
                 Player.controls.play();
             }
-
         }
     }
 }
