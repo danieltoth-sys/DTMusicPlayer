@@ -52,34 +52,22 @@ namespace PlayerUI
         #region MediaSubMenu
         private void button2_Click(object sender, EventArgs e)
         {
-            openChildForm(new Form2());
-            //..
-            //your codes
-            //..
+            openChildForm(new Form2());            
             hideSubMenu();
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
+        {            
             hideSubMenu();
         }
 
         private void button4_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
+        {            
             hideSubMenu();
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
+        {            
             hideSubMenu();
         }
         #endregion
@@ -163,18 +151,12 @@ namespace PlayerUI
 
         private void btnEqualizer_Click(object sender, EventArgs e)
         {
-            openChildForm(new Form3());
-            //..
-            //your codes
-            //..
+            openChildForm(new Form3());            
             hideSubMenu();
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
+        {            
             hideSubMenu();
         }
         private void btnExit_Click(object sender, EventArgs e)
