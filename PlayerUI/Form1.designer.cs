@@ -114,7 +114,7 @@
             this.panelMediaSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMediaSubMenu.Location = new System.Drawing.Point(0, 137);
             this.panelMediaSubMenu.Name = "panelMediaSubMenu";
-            this.panelMediaSubMenu.Size = new System.Drawing.Size(250, 165);
+            this.panelMediaSubMenu.Size = new System.Drawing.Size(250, 72);
             this.panelMediaSubMenu.TabIndex = 2;
             // 
             // button2
@@ -130,7 +130,7 @@
             this.button2.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(250, 40);
             this.button2.TabIndex = 0;
-            this.button2.Text = "Open files";
+            this.button2.Text = "Open file";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -210,6 +210,10 @@
             this.trackBarControl2.Properties.Labels.AddRange(new DevExpress.XtraEditors.Repository.TrackBarLabel[] {
             trackBarLabel5,
             trackBarLabel6});
+            this.trackBarControl2.Properties.LookAndFeel.SkinMaskColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
+            this.trackBarControl2.Properties.LookAndFeel.SkinMaskColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
+            this.trackBarControl2.Properties.LookAndFeel.SkinName = "Office 2019 Colorful";
+            this.trackBarControl2.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.trackBarControl2.Properties.Maximum = 100;
             this.trackBarControl2.Properties.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarControl2.Size = new System.Drawing.Size(200, 45);
@@ -231,6 +235,10 @@
             this.trackBarControl1.Properties.Labels.AddRange(new DevExpress.XtraEditors.Repository.TrackBarLabel[] {
             trackBarLabel1,
             trackBarLabel2});
+            this.trackBarControl1.Properties.LookAndFeel.SkinMaskColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
+            this.trackBarControl1.Properties.LookAndFeel.SkinMaskColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
+            this.trackBarControl1.Properties.LookAndFeel.SkinName = "Office 2019 Colorful";
+            this.trackBarControl1.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.trackBarControl1.Properties.Maximum = 50;
             this.trackBarControl1.Properties.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarControl1.Size = new System.Drawing.Size(560, 45);
