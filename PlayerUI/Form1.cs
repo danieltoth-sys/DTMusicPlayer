@@ -213,12 +213,20 @@ namespace PlayerUI
             }
             else
             {
-                isPlaying = true;
-                SelectSong(Properties.Settings.Default.songPath);
-                PlayFile(sender, e);
-                pictureBox2.Image = Resources.icons8_pause_30;
-                Player.controls.play();
-                Properties.Settings.Default.playState = true;
+                if (!(Properties.Settings.Default.songPath.ToString() == ""))
+                {
+                    isPlaying = true;
+                    SelectSong(Properties.Settings.Default.songPath);
+                    PlayFile(sender, e);
+                    pictureBox2.Image = Resources.icons8_pause_30;
+                    Player.controls.play();
+                    Properties.Settings.Default.playState = true;
+                }
+                else
+                {
+                    Program.ErrorMessage("No file is selected!");
+                    openChildForm(new Form2());
+                }
             }
         }
 
