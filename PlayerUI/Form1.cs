@@ -19,7 +19,6 @@ namespace PlayerUI
         public WMPLib.WindowsMediaPlayer Player;
         public string songPath { get; set; }
         double time = 0;
-
         public Form1()
         {
             InitializeComponent();
@@ -211,7 +210,6 @@ namespace PlayerUI
                 }
             }
         }
-
         public void SelectSong(String url)
         {
             Player.URL = url;
